@@ -58,6 +58,7 @@ HRESULT CDualNtscSourceStream::GetMediaType(CMediaType *pmt)
 	ZeroMemory(pvi, sizeof(VIDEOINFO));
 
 	// Return our highest quality 32bit format
+	pvi->AvgTimePerFrame = FPS_NTSC;
 	pvi->bmiHeader.biCompression = BI_RGB;
 	pvi->bmiHeader.biBitCount = 32;
 	pvi->bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
