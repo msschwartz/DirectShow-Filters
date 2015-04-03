@@ -30,7 +30,6 @@ CDualNtscSourceStream::CDualNtscSourceStream(HRESULT *phr, CSource *pFilter)
         m_cbBitmapInfo(0),
         video1Ptr(NULL),
         video2Ptr(NULL),
-		video2Alpha(0),
 		alphaSetter(NULL),
 		m_iFrameNumber(0),
         m_rtFrameLength(FPS_NTSC)
@@ -45,6 +44,7 @@ CDualNtscSourceStream::~CDualNtscSourceStream()
 
 
 
+// Single media type - RGB32, NTSC, 720x480
 HRESULT CDualNtscSourceStream::GetMediaType(CMediaType *pmt)
 {
     CAutoLock cAutoLock(m_pFilter->pStateLock());
@@ -128,7 +128,8 @@ HRESULT CDualNtscSourceStream::FillBuffer(IMediaSample *pSample)
 
     CAutoLock cAutoLockShared(&m_cSharedState);
 
-	// callback
+	// grab video2 alpha from our setter
+	int video2Alpha = 0;
 	if (alphaSetter != NULL) {
 		alphaSetter->GetVideo2Alpha(&video2Alpha);
 	}

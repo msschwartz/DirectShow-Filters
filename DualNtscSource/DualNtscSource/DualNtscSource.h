@@ -11,7 +11,7 @@ const REFERENCE_TIME FPS_NTSC = (long)((float)UNITS / (30000.0 / 1001.0));
 // alpha setter interface - called before filling the buffer
 DECLARE_INTERFACE_(IAlphaSetter, IUnknown) {
 	STDMETHOD(GetVideo2Alpha)(THIS_
-		int *alpha
+		int *alpha // 0 - 100
 	) PURE;
 };
 
@@ -40,8 +40,6 @@ protected:
 
     BITMAPINFO *m_pBmi;                 // Pointer to the bitmap header
     DWORD       m_cbBitmapInfo;         // Size of the bitmap header
-
-	int video2Alpha; // We only need one alpha for blending
 
     int m_iFrameNumber;
     const REFERENCE_TIME m_rtFrameLength;
